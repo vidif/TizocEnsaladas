@@ -83,7 +83,10 @@ section.bloque p.sub{margin:.4rem 0 1.4rem;color:#4b5d51}
 .cta-final h2{font-size:1.7rem;margin-bottom:.4rem}
 .cta-final .btn{max-width:420px;margin:1.2rem auto 0}
 
-footer{text-align:center;padding:2.4rem 1rem 1rem;color:#4b5d51;font-size:.95rem}
+footer{text-align:center;margin-top:3rem;padding:2rem 1rem 6rem;background:var(--verde-oscuro);color:#fff;border-radius:2.5rem 2.5rem 0 0;font-size:.95rem}
+footer .logo-pie{display:inline-block;margin-bottom:.8rem}
+footer .logo-pie img{width:min(180px,50vw);height:auto}
+footer p{opacity:.9}
 
 /* Botón flotante */
 .flota{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;width:min(420px,100% - 1.6rem);box-shadow:0 8px 22px rgba(0,0,0,.28)}
@@ -105,7 +108,7 @@ dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--v
 </head>
 <body>
 
-<header class="hero">
+<header class="hero" id="inicio">
   <div class="wrap">
     <img class="logo" src="TFH%20PNG.png" alt="Logo de Tizoc Food House">
     <p class="tipo">Ensaladas</p>
@@ -148,7 +151,7 @@ dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--v
 
   <section class="datos">
     <div class="wrap">
-      <h2 style="margin-bottom:1rem;font-size:clamp(1.6rem,5vw,2.1rem)">Contáctanos y pide a domicilio</h2>
+      <h2 style="margin-bottom:1rem;font-size:clamp(1.6rem,5vw,2.1rem)">Contáctanos y recoge o pide a domicilio</h2>
       <ul>
         <li>
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.600-3.100 19.500 19.500 0 0 1-6-6A19.800 19.800 0 0 1 2.100 4.200 2 2 0 0 1 4.100 2h3a2 2 0 0 1 2 1.700c.1 1 .4 1.900.7 2.800a2 2 0 0 1-.5 2.100L8.100 9.900a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.4c.9.300 1.800.6 2.800.7a2 2 0 0 1 1.700 2Z"/></svg></span>
@@ -169,13 +172,14 @@ dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--v
   <section class="wrap">
     <div class="cta-final">
       <h2>¿Se te antojó?</h2>
-      <p>Escríbenos y te decimos cómo pedir. Entregamos en tu domicilio.</p>
+      <p>Escríbenos y te decimos cómo pedir.</p>
       <a class="btn btn-wa" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">Pedir por WhatsApp</a>
     </div>
   </section>
 </main>
 
 <footer>
+  <a class="logo-pie" href="#inicio" aria-label="Volver al inicio"><img src="TFH%20PNG.png" alt="Tizoc Food House - Ensaladas. Volver al inicio"></a>
   <p>© <span id="anio">2026</span> Tizoc Food House · Ensaladas</p>
   <p>Del Presagio 3251B, Horizontes, Culiacán, Sinaloa</p>
 </footer>
