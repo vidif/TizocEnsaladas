@@ -33,8 +33,8 @@ a{color:inherit}
 :focus-visible{outline:3px solid var(--naranja);outline-offset:3px}
 
 /* Encabezado */
-.hero{background:var(--verde-oscuro);color:#fff;text-align:center;padding:2rem 0 3.5rem;border-radius:0 0 2.5rem 2.5rem}
-.hero img.logo{width:min(220px,55vw);margin:0 auto;border-radius:50%}
+.hero{background:var(--verde-oscuro);color:#fff;text-align:center;padding:2rem 0 2.8rem;border-radius:0 0 2.5rem 2.5rem}
+.hero img.logo{width:min(300px,80vw);height:auto;margin:0 auto;object-fit:contain}
 .hero .tipo{font-family:'Fredoka',sans-serif;font-size:1.6rem;font-weight:600;color:var(--naranja);margin-top:.4rem}
 .hero .lema{opacity:.9;margin-top:.2rem}
 .opciones{display:grid;gap:.8rem;margin:2rem auto 0;max-width:420px}
@@ -47,7 +47,7 @@ a{color:inherit}
 .btn-menu:hover{background:var(--naranja-osc)}
 
 /* Datos */
-.datos{margin-top:-1.8rem;position:relative}
+.datos{margin-top:3.2rem}
 .datos ul{list-style:none;padding:0;display:grid;gap:.9rem;background:#fff;border-radius:1.4rem;padding:1.3rem 1.4rem;box-shadow:0 8px 24px rgba(22,69,42,.12)}
 .datos li{display:flex;gap:.9rem;align-items:flex-start}
 .datos .ico{flex:none;width:42px;height:42px;border-radius:50%;background:var(--verde-claro);display:grid;place-items:center;color:var(--verde-oscuro)}
@@ -62,6 +62,7 @@ section.bloque h2{font-size:clamp(1.8rem,5vw,2.4rem)}
 section.bloque p.sub{margin:.4rem 0 1.4rem;color:#4b5d51}
 .menu-img{border-radius:1.2rem;overflow:hidden;box-shadow:0 8px 24px rgba(22,69,42,.15);background:#fff;cursor:zoom-in;border:0;padding:0;width:100%;display:block}
 .menu-img img{width:100%;height:auto}
+.precio{display:inline-block;background:var(--naranja);color:#fff;font:600 1.15rem 'Fredoka',sans-serif;padding:.25rem .9rem;border-radius:999px;margin-bottom:1rem}
 .nota{font-size:.95rem;color:#4b5d51;margin-top:.7rem}
 .galeria{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .galeria button{border:0;padding:0;background:#fff;border-radius:1.2rem;overflow:hidden;cursor:zoom-in;box-shadow:0 6px 18px rgba(22,69,42,.12);text-align:left}
@@ -112,8 +113,32 @@ dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--v
 </header>
 
 <main>
+  <section class="bloque" id="menu">
+    <div class="wrap">
+      <h2>Nuestro menú</h2>
+      <p class="sub">Toca la imagen para verla en grande.</p>
+      <span class="precio">Cada ensalada: $150</span>
+      <button class="menu-img" data-ver="Menu%20ensaladas%20Tizoc.png" data-alt="Menú de ensaladas de Tizoc Food House" aria-label="Ampliar menú">
+        <img src="Menu%20ensaladas%20Tizoc.png" alt="Menú de ensaladas de Tizoc Food House" loading="lazy">
+      </button>
+    </div>
+  </section>
+
+  <section class="bloque" id="ensaladas">
+    <div class="wrap">
+      <h2>Conoce nuestras ensaladas</h2>
+      <p class="sub">Frescas, balanceadas y con aderezos de la casa.</p>
+      <div class="galeria">
+        <button data-ver="Ensalada%20Lili.png" data-alt="Ensalada Lili"><img src="Ensalada%20Lili.png" alt="Ensalada Lili" loading="lazy"><span>Ensalada Lili · $150</span></button>
+        <button data-ver="Ensalada%20Fusilli.png" data-alt="Ensalada Fusilli"><img src="Ensalada%20Fusilli.png" alt="Ensalada Fusilli" loading="lazy"><span>Ensalada Fusilli · $150</span></button>
+        <button data-ver="Tizoc%20FH_instagram2.png" data-alt="Tizoc Food House"><img src="Tizoc%20FH_instagram2.png" alt="Tizoc Food House" loading="lazy"><span>Tizoc Food House</span></button>
+      </div>
+    </div>
+  </section>
+
   <section class="datos">
     <div class="wrap">
+      <h2 style="margin-bottom:1rem;font-size:clamp(1.6rem,5vw,2.1rem)">Contáctanos y pide a domicilio</h2>
       <ul>
         <li>
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.600-3.100 19.500 19.500 0 0 1-6-6A19.800 19.800 0 0 1 2.100 4.200 2 2 0 0 1 4.100 2h3a2 2 0 0 1 2 1.700c.1 1 .4 1.900.7 2.800a2 2 0 0 1-.5 2.100L8.100 9.900a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.4c.9.300 1.800.6 2.800.7a2 2 0 0 1 1.700 2Z"/></svg></span>
@@ -128,28 +153,6 @@ dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--v
           <div><small>Entrega</small><strong>Servicio a domicilio</strong></div>
         </li>
       </ul>
-    </div>
-  </section>
-
-  <section class="bloque" id="menu">
-    <div class="wrap">
-      <h2>Nuestro menú</h2>
-      <p class="sub">Toca la imagen para verla en grande.</p>
-      <button class="menu-img" data-ver="Menu%20ensaladas%20Tizoc.png" data-alt="Menú de ensaladas de Tizoc Food House" aria-label="Ampliar menú">
-        <img src="Menu%20ensaladas%20Tizoc.png" alt="Menú de ensaladas de Tizoc Food House" loading="lazy">
-      </button>
-    </div>
-  </section>
-
-  <section class="bloque" id="ensaladas">
-    <div class="wrap">
-      <h2>Conoce nuestras ensaladas</h2>
-      <p class="sub">Frescas, balanceadas y con aderezos de la casa.</p>
-      <div class="galeria">
-        <button data-ver="Ensalada%20Lili.png" data-alt="Ensalada Lili"><img src="Ensalada%20Lili.png" alt="Ensalada Lili" loading="lazy"><span>Ensalada Lili</span></button>
-        <button data-ver="Ensalada%20Fusilli.png" data-alt="Ensalada Fusilli"><img src="Ensalada%20Fusilli.png" alt="Ensalada Fusilli" loading="lazy"><span>Ensalada Fusilli</span></button>
-        <button data-ver="Tizoc%20FH_instagram2.png" data-alt="Tizoc Food House"><img src="Tizoc%20FH_instagram2.png" alt="Tizoc Food House" loading="lazy"><span>Tizoc Food House</span></button>
-      </div>
     </div>
   </section>
 
