@@ -4,207 +4,283 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tizoc Food House | Ensaladas a domicilio en Culiacán</title>
-<meta name="description" content="Ensaladas frescas con aderezos de la casa. Servicio a domicilio en Culiacán. Pide por WhatsApp al 667 231 3937.">
-<link rel="canonical" href="https://tizocensaladas.netlify.app/">
+<meta name="description" content="Arma tu ensalada, elige extras y envía tu pedido por WhatsApp. Servicio a domicilio en Culiacán. 667 231 3937.">
+<!-- IMPORTANTE: cambia tizocpedidos.netlify.app por el dominio de tu nuevo sitio -->
+<link rel="canonical" href="https://tizocpedidos.netlify.app/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="Tizoc Food House">
-<meta property="og:url" content="https://tizocensaladas.netlify.app/">
+<meta property="og:url" content="https://tizocpedidos.netlify.app/">
 <meta property="og:title" content="Tizoc Food House | Ensaladas">
-<meta property="og:description" content="Ensaladas frescas llenas de sabor. Mira el menú y pide por WhatsApp.">
-<meta property="og:image" content="https://tizocensaladas.netlify.app/Tizoc%20FH_instagram2.png">
-<meta property="og:image:alt" content="Logo de Tizoc Food House - Ensaladas, fondo verde">
+<meta property="og:description" content="Ensaladas frescas llenas de sabor. Arma tu pedido y envíalo por WhatsApp.">
+<meta property="og:image" content="https://tizocpedidos.netlify.app/Tizoc%20FH_instagram2.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tizoc Food House | Ensaladas">
-<meta name="twitter:description" content="Ensaladas frescas llenas de sabor. Mira el menú y pide por WhatsApp.">
-<meta name="twitter:image" content="https://tizocensaladas.netlify.app/Tizoc%20FH_instagram2.png">
 <link rel="icon" href="TFH%20PNG.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --verde-oscuro:#16452a;
-  --verde:#4f9d3a;
-  --verde-claro:#eaf4e2;
-  --naranja:#f08a24;
-  --naranja-osc:#d4700f;
-  --fondo:#f9fbf6;
-  --texto:#1d2b21;
-  --wa:#1fa855;
-}
+:root{--vo:#16452a;--v:#4f9d3a;--vc:#eaf4e2;--na:#f08a24;--nao:#d4700f;--bg:#f9fbf6;--tx:#1d2b21;--wa:#1fa855;--gr:#5b6b60}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--texto);background:var(--fondo);line-height:1.55;font-size:17px;padding-bottom:84px}
-h1,h2,h3{font-family:'Fredoka','Nunito',sans-serif;line-height:1.15;color:var(--verde-oscuro)}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--tx);background:var(--bg);line-height:1.5;font-size:17px;padding-bottom:90px}
+h1,h2,h3{font-family:'Fredoka','Nunito',sans-serif;line-height:1.15;color:var(--vo)}
 img{max-width:100%;display:block}
-a{color:inherit}
 .wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
-:focus-visible{outline:3px solid var(--naranja);outline-offset:3px}
-
-/* Encabezado */
-.hero{background:var(--verde-oscuro);color:#fff;text-align:center;padding:2rem 0 2.8rem;border-radius:0 0 2.5rem 2.5rem}
-.hero img.logo{width:min(300px,80vw);height:auto;margin:0 auto;object-fit:contain}
-.hero .tipo{font-family:'Fredoka',sans-serif;font-size:1.6rem;font-weight:600;color:var(--naranja);margin-top:.4rem}
-.hero .lema{opacity:.9;margin-top:.2rem}
-.opciones{display:grid;gap:.8rem;margin:2rem auto 0;max-width:420px}
-.btn{display:flex;align-items:center;justify-content:center;gap:.6rem;min-height:56px;padding:.8rem 1.4rem;border-radius:999px;border:0;font:700 1.1rem 'Nunito',sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s}
+:focus-visible{outline:3px solid var(--na);outline-offset:2px}
+button,input,textarea{font:inherit;color:inherit}
+.btn{display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:54px;padding:.7rem 1.3rem;border-radius:999px;border:0;font:800 1.08rem 'Nunito',sans-serif;text-decoration:none;cursor:pointer;width:100%}
 .btn:active{transform:scale(.97)}
-.btn svg{width:24px;height:24px;flex:none}
-.btn-wa{background:var(--wa);color:#fff}
-.btn-menu{background:var(--naranja);color:#fff}
-.btn-gal{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
-.btn-menu:hover{background:var(--naranja-osc)}
-
-/* Datos */
-.datos{margin-top:3.2rem}
-.datos ul{list-style:none;padding:0;display:grid;gap:.9rem;background:#fff;border-radius:1.4rem;padding:1.3rem 1.4rem;box-shadow:0 8px 24px rgba(22,69,42,.12)}
-.datos li{display:flex;gap:.9rem;align-items:flex-start}
-.datos .ico{flex:none;width:42px;height:42px;border-radius:50%;background:var(--verde-claro);display:grid;place-items:center;color:var(--verde-oscuro)}
-.datos .ico svg{width:22px;height:22px}
-.datos small{display:block;color:#5b6b60;font-weight:600}
+.b-na{background:var(--na);color:#fff}.b-wa{background:var(--wa);color:#fff}.b-ol{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.btn[disabled]{opacity:.5}
+.hero{background:var(--vo);color:#fff;text-align:center;padding:2rem 0 2.8rem;border-radius:0 0 2.5rem 2.5rem}
+.hero .logo{width:min(300px,80vw);height:auto;margin:0 auto}
+.tipo{font:600 1.6rem 'Fredoka',sans-serif;color:var(--na);margin-top:.4rem}
+.ops{display:grid;gap:.8rem;margin:1.8rem auto 0;max-width:420px}
+section.bq{padding:3rem 0 0}
+section.bq h2{font-size:clamp(1.8rem,5vw,2.4rem)}
+.sub{margin:.3rem 0 1.3rem;color:#4b5d51}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:#fff;border-radius:1.2rem;overflow:hidden;box-shadow:0 6px 18px rgba(22,69,42,.12);display:flex;flex-direction:column}
+.card .ph{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--vc);display:grid;place-items:center;font-size:3.5rem}
+.card .in{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+.card h3{font-size:1.35rem}.card p{color:#4b5d51;font-size:.95rem;flex:1}
+.pr{font:600 1.2rem 'Fredoka',sans-serif;color:var(--nao)}
+.aten{margin-top:1.5rem;padding:1.2rem;border-radius:1.2rem;background:var(--vc);text-align:center;display:grid;gap:.8rem;justify-items:center}
+.aten .btn{max-width:420px}
+.menu-b{border:0;padding:0;background:#fff;border-radius:1.2rem;overflow:hidden;box-shadow:0 8px 24px rgba(22,69,42,.15);cursor:zoom-in;display:block;width:min(520px,100%)}
+.menu-b img{width:100%;height:auto}
+.datos ul{list-style:none;padding:1.3rem 1.4rem;display:grid;gap:.9rem;background:#fff;border-radius:1.4rem;box-shadow:0 8px 24px rgba(22,69,42,.12)}
+.datos li{display:flex;gap:.9rem}.datos small{display:block;color:var(--gr);font-weight:600}
 .datos a{font-weight:800;text-decoration:none}
-.datos a:hover{text-decoration:underline}
-
-/* Secciones */
-section.bloque{padding:3.2rem 0 0}
-section.bloque h2{font-size:clamp(1.8rem,5vw,2.4rem)}
-section.bloque p.sub{margin:.4rem 0 1.4rem;color:#4b5d51}
-.menu-img{border-radius:1.2rem;overflow:hidden;box-shadow:0 8px 24px rgba(22,69,42,.15);background:#fff;cursor:zoom-in;border:0;padding:0;width:100%;display:block}
-.menu-img img{width:100%;height:auto}
-.precio{display:inline-block;background:var(--naranja);color:#fff;font:600 1.15rem 'Fredoka',sans-serif;padding:.25rem .9rem;border-radius:999px;margin-bottom:1rem}
-.nota{font-size:.95rem;color:#4b5d51;margin-top:.7rem}
-.galeria{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.galeria button{border:0;padding:0;background:#fff;border-radius:1.2rem;overflow:hidden;cursor:zoom-in;box-shadow:0 6px 18px rgba(22,69,42,.12);text-align:left}
-.galeria img{width:100%;aspect-ratio:1/1;object-fit:cover}
-.galeria a.tarjeta-logo{display:block;background:#fff;border-radius:1.2rem;overflow:hidden;box-shadow:0 6px 18px rgba(22,69,42,.12);text-decoration:none;cursor:pointer}
-.galeria span{display:block;padding:.7rem 1rem;font:600 1.1rem 'Fredoka',sans-serif;color:var(--verde-oscuro)}
-
-.cta-final{margin-top:3.2rem;background:var(--verde-claro);border-radius:1.6rem;padding:2rem 1.4rem;text-align:center}
-.cta-final h2{font-size:1.7rem;margin-bottom:.4rem}
-.cta-final .btn{max-width:420px;margin:1.2rem auto 0}
-
-footer{text-align:center;margin-top:3rem;padding:2rem 1rem 6rem;background:var(--verde-oscuro);color:#fff;border-radius:2.5rem 2.5rem 0 0;font-size:.95rem}
-footer .logo-pie{display:inline-block;margin-bottom:.8rem}
-footer .logo-pie img{width:min(180px,50vw);height:auto}
-footer p{opacity:.9}
-
-/* Botón flotante */
-.flota{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:10;width:min(420px,100% - 1.6rem);box-shadow:0 8px 22px rgba(0,0,0,.28)}
-
-/* Visor de imágenes */
-dialog{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
-dialog::backdrop{background:rgba(10,25,15,.85)}
-dialog img{max-width:96vw;max-height:88vh;border-radius:.8rem;margin:auto;background:#fff}
-dialog .cerrar{display:block;margin:0 0 .6rem auto;background:#fff;color:var(--verde-oscuro);border:0;border-radius:999px;padding:.5rem 1.1rem;font:800 1rem 'Nunito',sans-serif;cursor:pointer}
-
-@media (min-width:760px){
-  .opciones{grid-template-columns:repeat(3,1fr);max-width:760px}
-  .datos ul{grid-template-columns:repeat(3,1fr)}
-  body{padding-bottom:0}
-  .flota{left:auto;right:24px;transform:none;width:auto}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.ico{flex:none;width:42px;height:42px;border-radius:50%;background:var(--vc);display:grid;place-items:center;font-size:1.2rem}
+footer{text-align:center;margin-top:3rem;padding:2rem 1rem 7rem;background:var(--vo);color:#fff;border-radius:2.5rem 2.5rem 0 0;font-size:.95rem}
+footer img{width:min(180px,50vw);margin:0 auto .8rem}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:.7rem .9rem calc(.7rem + env(safe-area-inset-bottom,0px));background:rgba(249,251,246,.95);backdrop-filter:blur(8px);box-shadow:0 -4px 16px rgba(0,0,0,.12)}
+.bar .btn{max-width:520px;margin:auto}
+dialog{border:0;padding:0;width:min(560px,100%);max-height:92vh;overflow:auto;margin:auto auto 0;border-radius:1.4rem 1.4rem 0 0;background:var(--bg);color:var(--tx)}
+dialog::backdrop{background:rgba(10,25,15,.72)}
+.dh{position:sticky;top:0;z-index:2;background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.2rem .6rem;border-bottom:1px solid #dfe8d8}
+.dh h3{font-size:1.4rem}
+.x{border:0;background:var(--vc);color:var(--vo);width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer;flex:none}
+.db{padding:1rem 1.2rem}
+.df{position:sticky;bottom:0;background:var(--bg);padding:.8rem 1.2rem calc(.8rem + env(safe-area-inset-bottom,0px));border-top:1px solid #dfe8d8}
+.db h4{font:600 1.1rem 'Fredoka',sans-serif;color:var(--vo);margin:1.1rem 0 .5rem}
+.db h4:first-child{margin-top:0}
+.ing{color:#4b5d51;font-size:.95rem}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer;width:100%;height:100%;margin:0}
+.chip span{display:flex;justify-content:space-between;gap:.4rem;align-items:center;min-height:46px;padding:.5rem .8rem;border-radius:.9rem;background:#fff;box-shadow:inset 0 0 0 2px #dbe5d3;font-weight:600;font-size:.95rem}
+.chip b{color:var(--nao);font-weight:800;white-space:nowrap}
+.chip input:checked+span{background:var(--vc);box-shadow:inset 0 0 0 2px var(--v)}
+.chip input:focus-visible+span{outline:3px solid var(--na)}
+.chips.un{grid-template-columns:1fr 1fr 1fr}
+.acc{margin-bottom:.5rem}
+.ab{width:100%;display:flex;justify-content:space-between;align-items:center;min-height:50px;padding:.5rem 1rem;border-radius:.9rem;border:0;background:#fff;box-shadow:inset 0 0 0 2px #dbe5d3;font-weight:800;font-size:1rem;cursor:pointer;text-align:left}
+.ab em{font-style:normal;font-weight:600;color:var(--v);font-size:.9rem}
+.ab i{font-style:normal;transition:transform .2s;color:var(--vo)}
+.ab.on{background:var(--vc);box-shadow:inset 0 0 0 2px var(--v)}.ab.on i{transform:rotate(180deg)}
+.acc .chips{margin-top:.5rem}
+[hidden]{display:none!important}
+.cr{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:.7rem;padding:.5rem .8rem;border-radius:.9rem;background:#fff;box-shadow:inset 0 0 0 2px #dbe5d3;font-weight:600}
+.cr b{color:var(--nao);font-weight:800;white-space:nowrap}.cr .qty button{width:38px;height:38px;font-size:1.2rem}
+.qty{display:flex;align-items:center;gap:.9rem}
+.qty button{width:44px;height:44px;border-radius:50%;border:0;background:var(--vc);color:var(--vo);font-size:1.4rem;font-weight:800;cursor:pointer}
+.qty output{min-width:2ch;text-align:center;font:600 1.3rem 'Fredoka',sans-serif}
+textarea,input[type=text]{width:100%;padding:.7rem .9rem;border-radius:.9rem;border:2px solid #dbe5d3;background:#fff}
+textarea{min-height:70px;resize:vertical}
+.lin{background:#fff;border-radius:1rem;padding:.8rem 1rem;margin-bottom:.6rem;box-shadow:0 2px 8px rgba(22,69,42,.08)}
+.lin .t{display:flex;justify-content:space-between;gap:.6rem;font-weight:800}
+.lin small{display:block;color:var(--gr)}
+.lin .ac{display:flex;justify-content:space-between;align-items:center;margin-top:.4rem}
+.lin .qty button{width:36px;height:36px;font-size:1.1rem}
+.rm{border:0;background:none;color:#b3261e;font-weight:700;cursor:pointer;text-decoration:underline}
+.tot{display:grid;gap:.2rem;margin-top:1rem;padding:.9rem 1rem;border-radius:1rem;background:var(--vc)}
+.tot div{display:flex;justify-content:space-between}.tot .g{font:600 1.3rem 'Fredoka',sans-serif;color:var(--vo)}
+.err{color:#b3261e;font-weight:700;margin-top:.6rem;min-height:1.2em}
+.vis{background:transparent;max-height:94vh;margin:auto;border-radius:0;overflow:visible;width:auto}
+.vis img{max-width:96vw;max-height:84vh;border-radius:.8rem;background:#fff}
+.vis .x{display:block;margin:0 0 .6rem auto;width:auto;padding:0 1rem;border-radius:999px}
+@media(min-width:700px){dialog{margin:auto;border-radius:1.4rem}.ops{grid-template-columns:repeat(2,1fr);max-width:560px}.datos ul{grid-template-columns:repeat(3,1fr)}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-
 <header class="hero" id="inicio">
   <div class="wrap">
     <img class="logo" src="TFH%20PNG.png" alt="Logo de Tizoc Food House">
     <p class="tipo">Ensaladas</p>
-    <p class="lema">Platillos que te hacen bien</p>
-
-    <nav class="opciones" aria-label="Opciones principales">
-      <a class="btn btn-wa" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.300-5-4.500-.1-.2-1.200-1.600-1.200-3s.8-2.100 1-2.400c.3-.3.600-.3.800-.3h.600c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .500l-.4.600c-.2.200-.3.400-.1.700.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.400-.2.700-.1l2 .9c.3.200.5.300.5.400.1.100.1.700-.1 1.400Z"/></svg>
-        Pedir por WhatsApp
-      </a>
-      <a class="btn btn-menu" href="#menu">Ver menú</a>
-      <a class="btn btn-gal" href="#ensaladas">Ver ensaladas</a>
+    <p>Platillos que te hacen bien</p>
+    <nav class="ops" aria-label="Opciones principales">
+      <a class="btn b-na" href="#pedido">Armar mi pedido</a>
+      <a class="btn b-wa" data-wa="portada" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
+      <a class="btn b-ol" href="#menu">Ver menú</a>
+      <a class="btn b-ol" href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="bloque" id="menu">
-    <div class="wrap">
-      <h2>Nuestro menú</h2>
-      <p class="sub">Toca la imagen para verla en grande.</p>
-      <span class="precio">Cada ensalada: $150</span>
-      <button class="menu-img" data-ver="Menu%20ensaladas%20Tizoc.png" data-alt="Menú de ensaladas de Tizoc Food House" aria-label="Ampliar menú">
-        <img src="Menu%20ensaladas%20Tizoc.png" alt="Menú de ensaladas de Tizoc Food House" loading="lazy">
-      </button>
-    </div>
-  </section>
+  <section class="bq" id="pedido"><div class="wrap">
+    <h2>Arma tu pedido</h2>
+    <p class="sub">Elige tu ensalada, agrega extras si quieres y envía tu pedido por WhatsApp.</p>
+    <div class="grid" id="cards"></div>
+    <div class="aten"><p><strong>¿Prefieres que una persona te atienda?</strong><br>Escríbenos y te ayudamos con tu pedido.</p><a class="btn b-wa" data-wa="seccion_pedido" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">💬 Pedir por WhatsApp</a></div>
+  </div></section>
 
-  <section class="bloque" id="ensaladas">
-    <div class="wrap">
-      <h2>Conoce nuestras ensaladas</h2>
-      <p class="sub">Frescas, balanceadas y con aderezos de la casa.</p>
-      <div class="galeria">
-        <button data-ver="Ensalada%20Lili.png" data-alt="Ensalada Lili"><img src="Ensalada%20Lili.png" alt="Ensalada Lili" loading="lazy"><span>Ensalada Lili · $150</span></button>
-        <button data-ver="Ensalada%20Fusilli.png" data-alt="Ensalada Fusilli"><img src="Ensalada%20Fusilli.png" alt="Ensalada Fusilli" loading="lazy"><span>Ensalada Fusilli · $150</span></button>
-        <a class="tarjeta-logo" href="#inicio" aria-label="Volver al inicio"><img src="Tizoc%20FH_instagram2.png" alt="Tizoc Food House. Volver al inicio" loading="lazy"><span>Tizoc Food House</span></a>
-      </div>
-    </div>
-  </section>
+  <section class="bq" id="menu"><div class="wrap">
+    <h2>Nuestro menú</h2>
+    <p class="sub">Toca la imagen para verla en grande.</p>
+    <button class="menu-b" id="verMenu" aria-label="Ampliar menú"><img src="menu-tizoc.jpg" alt="Menú de Tizoc Food House: ensaladas y aderezos" loading="lazy"></button>
+  </div></section>
 
-  <section class="datos">
-    <div class="wrap">
-      <h2 style="margin-bottom:1rem;font-size:clamp(1.6rem,5vw,2.1rem)">Contáctanos y recoge o pide a domicilio</h2>
-      <ul>
-        <li>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.600-3.100 19.500 19.500 0 0 1-6-6A19.800 19.800 0 0 1 2.100 4.200 2 2 0 0 1 4.100 2h3a2 2 0 0 1 2 1.700c.1 1 .4 1.900.7 2.800a2 2 0 0 1-.5 2.100L8.100 9.900a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.4c.9.300 1.800.6 2.800.7a2 2 0 0 1 1.700 2Z"/></svg></span>
-          <div><small>Teléfono y WhatsApp</small><a href="tel:+526672313937">667 231 3937</a></div>
-        </li>
-        <li>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <div><small>Dirección de referencia</small><a href="https://www.google.com/maps/search/?api=1&query=Del+Presagio+3251B+Horizontes+Culiac%C3%A1n+Sinaloa" target="_blank" rel="noopener">Del Presagio 3251B, Horizontes, Culiacán, Sinaloa</a></div>
-        </li>
-        <li>
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 18h6l-3-8h-3M12 10l3-5h3"/></svg></span>
-          <div><small>Entrega</small><strong>Servicio a domicilio</strong></div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="wrap">
-    <div class="cta-final">
-      <h2>¿Se te antojó?</h2>
-      <p>Escríbenos y te decimos cómo pedir.</p>
-      <a class="btn btn-wa" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">Pedir por WhatsApp</a>
-    </div>
-  </section>
+  <section class="bq datos" id="contacto"><div class="wrap">
+    <h2 style="margin-bottom:1rem">Contáctanos y recoge o pide a domicilio</h2>
+    <ul>
+      <li><span class="ico">📞</span><div><small>Teléfono y WhatsApp</small><a href="tel:+526672313937">667 231 3937</a> · <a data-wa="contacto" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">WhatsApp</a></div></li>
+      <li><span class="ico">📍</span><div><small>Dirección de referencia</small><a href="https://www.google.com/maps/search/?api=1&query=Del+Presagio+3251B+Horizontes+Culiac%C3%A1n+Sinaloa" target="_blank" rel="noopener">Del Presagio 3251B, Horizontes, Culiacán, Sinaloa</a></div></li>
+      <li><span class="ico">🛵</span><div><small>Entrega</small><strong>Servicio a domicilio</strong></div></li>
+    </ul>
+  </div></section>
 </main>
 
 <footer>
-  <a class="logo-pie" href="#inicio" aria-label="Volver al inicio"><img src="TFH%20PNG.png" alt="Tizoc Food House - Ensaladas. Volver al inicio"></a>
+  <a href="#inicio" aria-label="Volver al inicio"><img src="TFH%20PNG.png" alt="Tizoc Food House. Volver al inicio"></a>
   <p>© <span id="anio">2026</span> Tizoc Food House · Ensaladas</p>
   <p>Del Presagio 3251B, Horizontes, Culiacán, Sinaloa</p>
 </footer>
 
-<a class="btn btn-wa flota" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">Pedir por WhatsApp</a>
+<div class="bar"><button class="btn b-na" id="bar">Armar mi pedido</button></div>
 
-<dialog id="visor" aria-label="Imagen ampliada">
-  <button class="cerrar" type="button">Cerrar</button>
-  <img id="visor-img" alt="">
-</dialog>
+<dialog id="dItem"><div class="dh"><h3 id="iT"></h3><button class="x" data-c aria-label="Cerrar">✕</button></div><div class="db" id="iB"></div><div class="df"><button class="btn b-na" id="iOk"></button></div></dialog>
+
+<dialog id="dCart"><div class="dh"><h3>Mi pedido</h3><button class="x" data-c aria-label="Cerrar">✕</button></div>
+<div class="db">
+  <div id="lines"></div>
+  <h4>¿Cómo lo quieres?</h4>
+  <div class="chips">
+    <label class="chip"><input type="radio" name="ent" value="A domicilio" checked><span>🛵 A domicilio</span></label>
+    <label class="chip"><input type="radio" name="ent" value="Paso a recoger"><span>🏠 Paso a recoger</span></label>
+  </div>
+  <div id="dom">
+    <h4>Dirección de entrega</h4>
+    <input type="text" id="dir" placeholder="Calle, número y colonia" autocomplete="street-address">
+    <input type="text" id="ref" placeholder="Referencias (casa, color, entre calles)" style="margin-top:.5rem">
+  </div>
+  <p class="ing" id="rec" hidden>Recoges en: Del Presagio 3251B, Horizontes, Culiacán.</p>
+  <h4>Tus datos</h4>
+  <input type="text" id="nom" placeholder="Tu nombre" autocomplete="name">
+  <input type="text" id="cel" placeholder="Tu celular (10 dígitos)" inputmode="tel" autocomplete="tel" maxlength="20" style="margin-top:.5rem">
+  <input type="text" id="hora" placeholder="¿Para qué hora? (opcional)" style="margin-top:.5rem">
+  <h4>Forma de pago</h4>
+  <div class="chips" id="pagos"></div>
+  <h4>Notas del pedido (opcional)</h4>
+  <textarea id="nota" placeholder="Ej. sin cebolla, aderezo aparte, tocar el timbre..."></textarea>
+  <div class="tot" id="tot"></div>
+  <p class="err" id="err" role="alert"></p>
+</div>
+<div class="df"><button class="btn b-wa" id="enviar">Enviar pedido por WhatsApp</button></div></dialog>
+
+<dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><img id="vImg" alt=""></dialog>
 
 <script>
-(function(){
-  var v=document.getElementById('visor'),i=document.getElementById('visor-img');
-  document.querySelectorAll('[data-ver]').forEach(function(b){
-    b.addEventListener('click',function(){
-      i.src=b.getAttribute('data-ver');i.alt=b.getAttribute('data-alt')||'';
-      if(v.showModal){v.showModal()}else{v.setAttribute('open','')}
-    });
-  });
-  v.querySelector('.cerrar').addEventListener('click',function(){v.close?v.close():v.removeAttribute('open')});
-  v.addEventListener('click',function(e){if(e.target===v){v.close()}});
-  document.getElementById('anio').textContent=new Date().getFullYear();
-})();
+/* ===== CONFIGURACIÓN: aquí cambias precios y datos ===== */
+var CFG={tel:'526672313937',precio:150,envio:'Envío desde $35 (se confirma por WhatsApp según tu zona)',pagos:['Efectivo','Transferencia'],aderezoExtra:10,crutonExtra:10};
+var ENS=[
+ {n:'Ensalada Clásica',i:'Lechuga, pepino, zanahoria, col morada, pollo a la plancha, crutones, queso parmesano.',img:'ensalada-clasica.jpg',e:'🥗'},
+ {n:'Ensalada Fusilli',i:'Lechuga, pepino, brócoli, pasta Fusilli, pollo a la plancha, crutones, queso parmesano.',img:'Ensalada%20Fusilli.png',e:'🍝'},
+ {n:'Ensalada Pimientos',i:'Lechuga, pepino, pimiento morrón, zanahoria, pollo a la plancha, crutones, queso parmesano.',img:'',e:'🫑'},
+ {n:'Ensalada Lili',i:'Lechuga, pepino, manzana, queso panela, pollo a la plancha, crutones, queso parmesano.',img:'Ensalada%20Lili.png',e:'🍎'}
+];
+var PROT=[['Pollo',20],['Panela',20]];
+var VEG=[['Lechuga',20],['Pimientos',20],['Pepino',10],['Manzana',10],['Brócoli',10],['Zanahoria',10],['Col morada',10],['Pasta Fusilli',10],['Arándanos',10]];
+var G={prot:PROT,veg:VEG},EXT=PROT.concat(VEG);
+var ADER=['Ranch','Cilantro','Mostaza Miel'];
+/* ======================================================= */
+/* ===== ANALÍTICA: pega aquí tu ID de Google Analytics 4 (G-XXXXXXXXXX). Mientras diga XXXX no se mide nada ===== */
+var GA_ID='G-XXXXXXXXXX';
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+if(GA_ID.indexOf('XXXX')<0){var gs=document.createElement('script');gs.async=true;gs.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(gs);gtag('js',new Date());gtag('config',GA_ID)}
+function track(n,p){try{if(GA_ID.indexOf('XXXX')<0)gtag('event',n,p||{})}catch(e){}}
+var $=function(s){return document.querySelector(s)},cart=[],cur=null,m=function(n){return '$'+n};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var P={};EXT.forEach(function(x){P[x[0]]=x[1]});
+var unit=function(l){return CFG.precio+l.ex.reduce(function(a,k){return a+P[k]},0)+l.ae.length*CFG.aderezoExtra+(l.cr||0)*CFG.crutonExtra};
+var tog=function(a,v,on){var i=a.indexOf(v);if(on&&i<0)a.push(v);if(!on&&i>=0)a.splice(i,1)};
+var show=function(d){d.showModal?d.showModal():d.setAttribute('open','')};
+document.querySelectorAll('dialog').forEach(function(d){d.addEventListener('click',function(e){if(e.target===d||e.target.hasAttribute('data-c'))d.close()})});
+
+$('#cards').innerHTML=ENS.map(function(x,i){
+ return '<article class="card">'+(x.img?'<img class="ph" src="'+x.img+'" alt="'+x.n+'" loading="lazy">':'<div class="ph" aria-hidden="true">'+x.e+'</div>')+
+ '<div class="in"><h3>'+x.n+'</h3><p>'+x.i+'</p><span class="pr">'+m(CFG.precio)+'</span><button class="btn b-na" data-i="'+i+'">Agregar al pedido</button></div></article>'}).join('');
+$('#cards').addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b)item(+b.dataset.i)});
+
+function grp(id,t,a){return '<div class="acc"><button type="button" class="ab" data-acc="'+id+'" aria-expanded="false" aria-controls="p-'+id+'"><span>'+t+' <em id="n-'+id+'"></em></span><i>▾</i></button><div class="chips" id="p-'+id+'" hidden>'+a.map(function(x){return '<label class="chip"><input type="checkbox" name="ex" value="'+x[0]+'"><span>'+x[0]+' <b>+'+m(x[1])+'</b></span></label>'}).join('')+'</div></div>'}
+function cnt(){Object.keys(G).forEach(function(g){var c=cur.ex.filter(function(k){return G[g].some(function(x){return x[0]===k})}).length;$('#n-'+g).textContent=c?'· '+c+' elegido'+(c>1?'s':''):''})}
+function item(i){
+ cur={e:ENS[i],q:1,ad:ADER[0],ex:[],ae:[],cr:0,nota:''};track('ver_ensalada',{ensalada:cur.e.n});
+ $('#iT').textContent=cur.e.n;
+ $('#iB').innerHTML='<p class="ing">'+cur.e.i+'</p>'+
+ '<h4>Cantidad</h4><div class="qty"><button data-q="-1" aria-label="Menos">−</button><output id="iq">1</output><button data-q="1" aria-label="Más">+</button></div>'+
+ '<h4>Tu aderezo (incluido)</h4><div class="chips un">'+ADER.map(function(a,k){return '<label class="chip"><input type="radio" name="ad" value="'+a+'"'+(k?'':' checked')+'><span>'+a+'</span></label>'}).join('')+'</div>'+
+ '<h4>¿Quieres agregarle algo más?</h4>'+grp('prot','Proteínas',PROT)+grp('veg','Vegetales y más',VEG)+
+ '<h4>Aderezo y crutones extra</h4><div class="chips un">'+ADER.map(function(a){return '<label class="chip"><input type="checkbox" name="ae" value="'+a+'"><span>'+a+'<b>+'+m(CFG.aderezoExtra)+'</b></span></label>'}).join('')+'</div>'+
+ '<div class="cr"><span>Crutones extra <b>+'+m(CFG.crutonExtra)+' c/u</b></span><div class="qty"><button data-cr="-1" aria-label="Menos crutones">−</button><output id="ic">0</output><button data-cr="1" aria-label="Más crutones">+</button></div></div>'+
+ '<h4>Nota para esta ensalada (opcional)</h4><textarea id="in" placeholder="Ej. sin crutones, poco queso..."></textarea>';
+ price();cnt();show($('#dItem'));$('#dItem').scrollTop=0}
+function price(){$('#iOk').textContent='Agregar · '+m(unit(cur)*cur.q)}
+$('#iB').addEventListener('click',function(e){var b=e.target.closest('[data-q],[data-cr],[data-acc]');if(!b)return;
+ if(b.dataset.acc){var p=$('#p-'+b.dataset.acc),o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o);b.classList.toggle('on',o);return}
+ if(b.dataset.cr){cur.cr=Math.max(0,Math.min(10,cur.cr+ +b.dataset.cr));$('#ic').textContent=cur.cr;price();return}
+ cur.q=Math.max(1,Math.min(20,cur.q+ +b.dataset.q));$('#iq').textContent=cur.q;price()});
+$('#iB').addEventListener('change',function(e){var t=e.target;if(t.name==='ad')cur.ad=t.value;if(t.name==='ex')tog(cur.ex,t.value,t.checked);if(t.name==='ae')tog(cur.ae,t.value,t.checked);price();cnt()});
+$('#iB').addEventListener('input',function(e){if(e.target.id==='in')cur.nota=e.target.value.trim()});
+$('#iOk').addEventListener('click',function(){track('agregar_al_pedido',{ensalada:cur.e.n,cantidad:cur.q,extras:cur.ex.length+cur.ae.length+cur.cr,value:unit(cur)*cur.q,currency:'MXN'});cart.push(cur);$('#dItem').close();bar()});
+
+function bar(){var n=cart.reduce(function(a,l){return a+l.q},0),t=cart.reduce(function(a,l){return a+unit(l)*l.q},0),b=$('#bar');
+ b.textContent=n?'🛒 Ver mi pedido ('+n+') · '+m(t):'Armar mi pedido';b.className='btn '+(n?'b-wa':'b-na')}
+$('#bar').addEventListener('click',function(){if(!cart.length){track('click_armar_pedido',{donde:'barra'});location.hash='#pedido';return}track('abrir_pedido',{articulos:cart.length});draw();show($('#dCart'))});
+
+function draw(){
+ $('#lines').innerHTML=cart.length?cart.map(function(l,i){
+  return '<div class="lin"><div class="t"><span>'+l.e.n+'</span><span>'+m(unit(l)*l.q)+'</span></div><small>Aderezo: '+l.ad+(l.ex.length?' · Extras: '+esc(l.ex.join(', ')):'')+(l.ae.length?' · Aderezo extra: '+esc(l.ae.join(', ')):'')+(l.cr?' · Crutones extra: '+l.cr:'')+(l.nota?' · Nota: '+esc(l.nota):'')+'</small>'+
+  '<div class="ac"><div class="qty"><button data-m="'+i+'" data-d="-1" aria-label="Menos">−</button><output>'+l.q+'</output><button data-m="'+i+'" data-d="1" aria-label="Más">+</button></div><button class="rm" data-r="'+i+'">Quitar</button></div></div>'}).join('')
+  :'<p class="ing">Tu pedido está vacío.</p>';
+ var dom=document.querySelector('[name=ent]:checked').value==='A domicilio',s=cart.reduce(function(a,l){return a+unit(l)*l.q},0);
+ $('#dom').hidden=!dom;$('#rec').hidden=dom;
+ $('#tot').innerHTML='<div><span>Subtotal</span><b>'+m(s)+'</b></div>'+(dom?'<div class="ing"><span>'+CFG.envio+'</span></div>':'')+'<div class="g"><span>Total'+(dom?' (sin envío)':'')+'</span><span>'+m(s)+'</span></div>';bar()}
+$('#lines').addEventListener('click',function(e){var b=e.target;
+ if(b.dataset.r!==undefined)cart.splice(+b.dataset.r,1);
+ if(b.dataset.m!==undefined){var l=cart[+b.dataset.m];l.q+=+b.dataset.d;if(l.q<1)cart.splice(+b.dataset.m,1);if(l&&l.q>20)l.q=20}
+ draw();if(!cart.length)$('#dCart').close()});
+document.querySelectorAll('[name=ent]').forEach(function(r){r.addEventListener('change',draw)});
+$('#pagos').innerHTML=CFG.pagos.map(function(p,k){return '<label class="chip"><input type="radio" name="pg" value="'+p+'"'+(k?'':' checked')+'><span>'+p+'</span></label>'}).join('');
+
+$('#enviar').addEventListener('click',function(){
+ var dom=document.querySelector('[name=ent]:checked').value==='A domicilio',nom=$('#nom').value.trim(),dir=$('#dir').value.trim(),er=$('#err');er.textContent='';
+ if(!cart.length){er.textContent='Agrega al menos una ensalada.';track('error_pedido',{motivo:'sin_ensaladas'});return}
+ if(!nom){er.textContent='Escribe tu nombre.';track('error_pedido',{motivo:'falta_nombre'});$('#nom').focus();return}
+ var cel=$('#cel').value.trim();if(cel.replace(/\D/g,'').length<10){er.textContent='Escribe tu celular a 10 dígitos.';track('error_pedido',{motivo:'falta_celular'});$('#cel').focus();return}
+ if(dom&&!dir){er.textContent='Escribe tu dirección de entrega.';track('error_pedido',{motivo:'falta_direccion'});$('#dir').focus();return}
+ var s=cart.reduce(function(a,l){return a+unit(l)*l.q},0),L=['Hola Tizoc, quiero hacer un pedido de ensalada 🥗','','*🧾 MI PEDIDO*'];
+ cart.forEach(function(l,i){L.push((i+1)+') '+l.q+' x '+l.e.n+' — '+m(unit(l)*l.q));L.push('   🥣 Aderezo: '+l.ad);
+  if(l.ex.length)L.push('   ➕ Extras: '+l.ex.join(', '));if(l.ae.length)L.push('   ➕ Aderezo extra: '+l.ae.join(', '));if(l.cr)L.push('   ➕ Crutones extra: '+l.cr);if(l.nota)L.push('   📝 Nota: '+l.nota)});
+ L.push('',(dom?'🛵':'🏠')+' *Entrega:* '+(dom?'A domicilio':'Paso a recoger'));
+ if(dom){L.push('📍 *Dirección:* '+dir);if($('#ref').value.trim())L.push('🧭 *Referencias:* '+$('#ref').value.trim())}
+ if($('#hora').value.trim())L.push('⏰ *Hora:* '+$('#hora').value.trim());
+ var pago=document.querySelector('[name=pg]:checked').value;
+ L.push('💳 *Pago:* '+pago);
+ if($('#nota').value.trim())L.push('📝 *Notas:* '+$('#nota').value.trim());
+ L.push('','🧾 *Subtotal:* '+m(s));if(dom)L.push('🛵 *Envío:* por confirmar');
+ L.push('💰 *Total:* '+m(s)+(dom?' + envío':''),'','👤 *Nombre:* '+nom,'📱 *Celular:* '+cel);
+ track('enviar_whatsapp',{value:s,currency:'MXN',entrega:dom?'domicilio':'recoger',pago:pago,articulos:cart.reduce(function(a,l){return a+l.q},0)});
+ var u='https://wa.me/'+CFG.tel+'?text='+encodeURIComponent(L.join('\n'));
+ if(!window.open(u,'_blank'))location.href=u});
+
+$('#verMenu').addEventListener('click',function(){track('ver_menu_ampliado');$('#vImg').src='menu-tizoc.jpg';$('#vImg').alt='Menú de Tizoc Food House';show($('#dVis'))});
+document.querySelectorAll('[data-wa]').forEach(function(a){a.addEventListener('click',function(){track('click_whatsapp_directo',{donde:a.dataset.wa})})});
+document.querySelectorAll('.ops a:not([data-wa])').forEach(function(a){a.addEventListener('click',function(){track('click_portada',{boton:a.getAttribute('href')})})});
+var fd=0;$('#dCart').addEventListener('focusin',function(e){if(!fd&&/INPUT|TEXTAREA/.test(e.target.tagName)&&e.target.type!=='radio'){fd=1;track('llenar_datos')}});
+$('#anio').textContent=new Date().getFullYear();bar();
 </script>
 </body>
 </html>
