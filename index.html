@@ -101,6 +101,7 @@ textarea{min-height:70px;resize:vertical}
 .lin .ac{display:flex;justify-content:space-between;align-items:center;margin-top:.4rem}
 .lin .qty button{width:36px;height:36px;font-size:1.1rem}
 .b-ol2{background:#fff;color:var(--vo);box-shadow:inset 0 0 0 2px var(--v);margin-top:.6rem}
+#gracias{position:fixed;left:.8rem;right:.8rem;top:calc(.8rem + env(safe-area-inset-top,0px));z-index:70;max-width:520px;margin:auto;padding:.9rem 1rem;border-radius:1rem;background:var(--vo);color:#fff;font-weight:700;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .ed{border:0;background:none;color:var(--vo);font-weight:800;cursor:pointer;text-decoration:underline;padding:.4rem .2rem;margin-right:.9rem}
 .rm{border:0;background:none;color:#b3261e;font-weight:700;cursor:pointer;text-decoration:underline}
 .tot{display:grid;gap:.2rem;margin-top:1rem;padding:.9rem 1rem;border-radius:1rem;background:var(--vc)}
@@ -200,8 +201,9 @@ textarea{min-height:70px;resize:vertical}
 
 <dialog id="dOk"><div class="dh"><h3>¡Casi listo! 🎉</h3><button class="x" data-c aria-label="Cerrar">✕</button></div>
 <div class="db"><p><strong>Se abrió WhatsApp con tu pedido.</strong> Para que lo recibamos, <strong>presiona el botón de enviar</strong> dentro de WhatsApp.</p>
-<p class="ing" style="margin-top:.7rem">¿No se abrió o no alcanzaste a enviarlo? Puedes abrirlo de nuevo:</p></div>
-<div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="rm" data-c style="display:block;margin:.8rem auto 0">Cerrar</button></div></dialog>
+<p class="ing" style="margin-top:.7rem">Tu pedido sigue guardado. ¿No se abrió o no alcanzaste a enviarlo? Puedes abrirlo de nuevo, o volver para cambiar algo.</p></div>
+<div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="btn b-na" id="yaEnvie" type="button" style="margin-top:.6rem">✅ Ya envié mi pedido</button><button class="btn b-ol2" id="volver" type="button">← Volver a mi pedido</button></div></dialog>
+<div id="gracias" role="status" hidden>✅ ¡Gracias por tu pedido! Te confirmamos por WhatsApp.</div>
 
 <dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><div class="box"><img id="vImg" alt=""></div></dialog>
 
@@ -262,11 +264,11 @@ $('#iB').addEventListener('click',function(e){var b=e.target.closest('[data-q],[
  cur.q=Math.max(1,Math.min(20,cur.q+ +b.dataset.q));$('#iq').textContent=cur.q;price()});
 $('#iB').addEventListener('change',function(e){var t=e.target;if(t.name==='ad')cur.ad=t.value;if(t.name==='ex')tog(cur.ex,t.value,t.checked);if(t.name==='ae')tog(cur.ae,t.value,t.checked);if(t.name==='cr')cur.cr=t.checked?1:0;price();cnt()});
 $('#iB').addEventListener('input',function(e){if(e.target.id==='in')cur.nota=e.target.value.trim()});
-$('#iOk').addEventListener('click',function(){if(editIdx>=0){cart[editIdx]=cur;track('editar_ensalada',{ensalada:cur.e.n,cantidad:cur.q,value:unit(cur)*cur.q,currency:'MXN'});editIdx=-1;$('#dItem').close();draw();return}track('agregar_al_pedido',{ensalada:cur.e.n,cantidad:cur.q,extras:cur.ex.length+cur.ae.length+cur.cr,value:unit(cur)*cur.q,currency:'MXN'});cart.push(cur);$('#dItem').close();bar()});
+$('#iOk').addEventListener('click',function(){unpend();if(editIdx>=0){cart[editIdx]=cur;track('editar_ensalada',{ensalada:cur.e.n,cantidad:cur.q,value:unit(cur)*cur.q,currency:'MXN'});editIdx=-1;$('#dItem').close();draw();return}track('agregar_al_pedido',{ensalada:cur.e.n,cantidad:cur.q,extras:cur.ex.length+cur.ae.length+cur.cr,value:unit(cur)*cur.q,currency:'MXN'});cart.push(cur);$('#dItem').close();bar()});
 
 function bar(){var n=cart.reduce(function(a,l){return a+l.q},0),t=cart.reduce(function(a,l){return a+unit(l)*l.q},0),b=$('#bar');
- b.textContent=n?'🛒 Ver mi pedido ('+n+') · '+m(t):'Armar mi pedido';b.className='btn '+(n?'b-wa':'b-na')}
-$('#bar').addEventListener('click',function(){if(!cart.length){track('click_armar_pedido',{donde:'barra'});location.hash='#pedido';return}track('abrir_pedido',{articulos:cart.length});draw();show($('#dCart'))});
+ b.textContent=n?(pend?'📲 Terminar de enviar mi pedido · '+m(t):'🛒 Ver mi pedido ('+n+') · '+m(t)):'Armar mi pedido';b.className='btn '+(n?'b-wa':'b-na')}
+$('#bar').addEventListener('click',function(){if(!cart.length){track('click_armar_pedido',{donde:'barra'});location.hash='#pedido';return}if(pend){$('#okLink').href=lastU;show($('#dOk'));return}track('abrir_pedido',{articulos:cart.length});draw();show($('#dCart'))});
 
 function draw(){
  $('#lines').innerHTML=cart.length?cart.map(function(l,i){
@@ -278,7 +280,7 @@ function draw(){
  var c=colSel(),env=(dom&&c&&!c.otra)?c.t:null;
  $('#colOtra').hidden=!(c&&c.otra);$('#col').hidden=!!(c&&c.otra);$('#colMsg').hidden=!(c&&c.otra);
  $('#tot').innerHTML='<div><span>Subtotal</span><b>'+m(s)+'</b></div>'+(!dom?'':env!==null?'<div><span>Envío ('+esc(c.n)+')</span><b>'+m(env)+'</b></div>':'<div class="ing"><span>'+(c&&c.otra?'Envío: lo confirmamos por WhatsApp':'Elige tu colonia para ver el costo de envío')+'</span></div>')+'<div class="g"><span>Total'+(dom&&env===null?' (sin envío)':'')+'</span><span>'+m(s+(env||0))+'</span></div>';bar();save()}
-$('#lines').addEventListener('click',function(e){var b=e.target;
+$('#lines').addEventListener('click',function(e){var b=e.target;if(b.tagName==='BUTTON')unpend();
  if(b.dataset.e!==undefined){item(ENS.indexOf(cart[+b.dataset.e].e),+b.dataset.e);return}
  if(b.dataset.r!==undefined)cart.splice(+b.dataset.r,1);
  if(b.dataset.m!==undefined){var l=cart[+b.dataset.m];l.q+=+b.dataset.d;if(l.q<1)cart.splice(+b.dataset.m,1);if(l&&l.q>20)l.q=20}
@@ -307,13 +309,18 @@ $('#colOtra').addEventListener('change',function(){buscar(true)});
 $('#sug').addEventListener('click',function(e){var b=e.target.closest('[data-s]');if(b)pick(+b.dataset.s,'colonia_sugerida')});
 $('#pagos').innerHTML=CFG.pagos.map(function(p,k){return '<label class="chip"><input type="radio" name="pg" value="'+p+'"'+(k?'':' checked')+'><span>'+p+'</span></label>'}).join('');
 
-function save(){try{var c=colSel();localStorage.setItem('tfh',JSON.stringify({t:Date.now(),c:cart.map(function(l){return{i:ENS.indexOf(l.e),q:l.q,ad:l.ad,ex:l.ex,ae:l.ae,cr:l.cr,nota:l.nota}}),f:{nom:$('#nom').value,cel:$('#cel').value,dir:$('#dir').value,ref:$('#ref').value,hora:$('#hora').value,nota:$('#nota').value,colN:c&&!c.otra?c.n:'',colOtra:$('#colOtra').value,noCol:$('#noCol').checked,ent:document.querySelector('[name=ent]:checked').value,pg:document.querySelector('[name=pg]:checked').value}}))}catch(e){}}
+function save(){try{var c=colSel();localStorage.setItem('tfh',JSON.stringify({t:Date.now(),p:pend?lastU:'',c:cart.map(function(l){return{i:ENS.indexOf(l.e),q:l.q,ad:l.ad,ex:l.ex,ae:l.ae,cr:l.cr,nota:l.nota}}),f:{nom:$('#nom').value,cel:$('#cel').value,dir:$('#dir').value,ref:$('#ref').value,hora:$('#hora').value,nota:$('#nota').value,colN:c&&!c.otra?c.n:'',colOtra:$('#colOtra').value,noCol:$('#noCol').checked,ent:document.querySelector('[name=ent]:checked').value,pg:document.querySelector('[name=pg]:checked').value}}))}catch(e){}}
 $('#dCart').addEventListener('input',save);$('#dCart').addEventListener('change',save);
 $('#seguir').addEventListener('click',function(){$('#dCart').close();track('seguir_agregando');$('#pedido').scrollIntoView()});
-var lastU='';
-function reset(){cart=[];['#nom','#cel','#dir','#ref','#hora','#nota'].forEach(function(k){$(k).value=''});
+var lastU='',pend=false;
+function limpiar(){cart=[];pend=false;lastU='';['#nom','#cel','#dir','#ref','#hora','#nota'].forEach(function(k){$(k).value=''});
  document.querySelector('[name=ent][value="A domicilio"]').checked=true;document.querySelector('[name=pg]').checked=true;
- $('#col').value='';$('#colOtra').value='';$('#noCol').checked=false;$('#sug').hidden=true;$('#colOk').hidden=true;$('#err').textContent='';$('#dCart').close();draw();try{localStorage.removeItem('tfh')}catch(e){}window.scrollTo(0,0);$('#okLink').href=lastU;show($('#dOk'))}
+ $('#col').value='';$('#colOtra').value='';$('#noCol').checked=false;$('#sug').hidden=true;$('#colOk').hidden=true;$('#err').textContent='';$('#dCart').close();$('#dOk').close();draw();try{localStorage.removeItem('tfh')}catch(e){}window.scrollTo(0,0);
+ var g=$('#gracias');g.hidden=false;clearTimeout(window._g);window._g=setTimeout(function(){g.hidden=true},8000)}
+function unpend(){if(pend){pend=false;lastU='';bar();save()}}
+$('#yaEnvie').addEventListener('click',function(){track('confirmo_envio');limpiar()});
+$('#volver').addEventListener('click',function(){$('#dOk').close();draw();show($('#dCart'))});
+$('#dCart').addEventListener('input',unpend);$('#dCart').addEventListener('change',unpend);
 $('#enviar').addEventListener('click',function(){
  var dom=document.querySelector('[name=ent]:checked').value==='A domicilio',nom=$('#nom').value.trim(),dir=$('#dir').value.trim(),er=$('#err');er.textContent='';
  if(!cart.length){er.textContent='Agrega al menos una ensalada.';track('error_pedido',{motivo:'sin_ensaladas'});return}
@@ -335,7 +342,7 @@ $('#enviar').addEventListener('click',function(){
  L.push('💰 *Total:* '+(dom&&env===null?m(s)+' + envío por confirmar':m(s+(env||0))),'','👤 *Nombre:* '+nom,'📱 *Celular:* '+cel);
  track('enviar_whatsapp',{value:s+(env||0),envio:env===null?'por_confirmar':env,currency:'MXN',entrega:dom?'domicilio':'recoger',pago:pago,articulos:cart.reduce(function(a,l){return a+l.q},0)});
  var u='https://wa.me/'+CFG.tel+'?text='+encodeURIComponent(L.join('\n'));
- var ok=window.open(u,'_blank');lastU=u;reset();if(!ok)location.href=u});
+ var ok=window.open(u,'_blank');lastU=u;pend=true;save();$('#dCart').close();$('#okLink').href=u;bar();show($('#dOk'));if(!ok)location.href=u});
 
 $('#verMenu').addEventListener('click',function(){track('ver_menu_ampliado');zoom('Menu%20ensaladas%20Tizoc.png','Menú de Tizoc Food House')});
 document.querySelectorAll('[data-wa]').forEach(function(a){a.addEventListener('click',function(){track('click_whatsapp_directo',{donde:a.dataset.wa})})});
@@ -343,7 +350,7 @@ document.querySelectorAll('.ops a:not([data-wa])').forEach(function(a){a.addEven
 var fd=0;$('#dCart').addEventListener('focusin',function(e){if(!fd&&/INPUT|TEXTAREA/.test(e.target.tagName)&&e.target.type!=='radio'){fd=1;track('llenar_datos')}});
 (function(){try{var d=JSON.parse(localStorage.getItem('tfh')||'null');if(!d||Date.now()-d.t>432e5)return;
  cart=(d.c||[]).filter(function(l){return ENS[l.i]}).map(function(l){return{e:ENS[l.i],q:Math.max(1,Math.min(20,+l.q||1)),ad:ADER.indexOf(l.ad)>=0?l.ad:ADER[0],ex:(l.ex||[]).filter(function(k){return P[k]!==undefined}),ae:(l.ae||[]).filter(function(k){return ADER.indexOf(k)>=0}),cr:l.cr?1:0,nota:l.nota||''}});
- var f=d.f||{};['nom','cel','dir','ref','hora','nota','colOtra'].forEach(function(k){if(f[k])$('#'+k).value=f[k]});
+ pend=!!d.p;lastU=d.p||'';var f=d.f||{};['nom','cel','dir','ref','hora','nota','colOtra'].forEach(function(k){if(f[k])$('#'+k).value=f[k]});
  if(f.colN){var i=COL.findIndex(function(c){return c[0]===f.colN});if(i>=0)$('#col').value=i}
  $('#noCol').checked=!!f.noCol;
  var e=document.querySelector('[name=ent][value="'+f.ent+'"]');if(e)e.checked=true;var p=document.querySelector('[name=pg][value="'+f.pg+'"]');if(p)p.checked=true;
