@@ -125,7 +125,7 @@ textarea{min-height:70px;resize:vertical}
     <p>Platillos que te hacen bien</p>
     <nav class="ops" aria-label="Opciones principales">
       <a class="btn b-wa" data-wa="portada" href="https://wa.me/526672313937?text=Hola%20Tizoc%2C%20quiero%20hacer%20un%20pedido%20de%20ensalada.." target="_blank" rel="noopener">💬 Pedir por WhatsApp</a>
-      <a class="btn b-na" href="#pedido">Armar mi pedido</a>
+      <a class="btn b-na" href="#pedido">Arma tu pedido</a>
       <a class="btn b-ol" href="#menu">Ver menú</a>
       <a class="btn b-ol" href="#contacto">Contacto</a>
     </nav>
@@ -161,7 +161,7 @@ textarea{min-height:70px;resize:vertical}
   <p>Del Presagio 3251B, Horizontes, Culiacán, Sinaloa</p>
 </footer>
 
-<div class="bar"><button class="btn b-na" id="bar">Armar mi pedido</button></div>
+<div class="bar"><button class="btn b-na" id="bar">Arma tu pedido</button></div>
 
 <dialog id="dItem"><div class="dh"><h3 id="iT"></h3><button class="x" data-c aria-label="Cerrar">✕</button></div><div class="db" id="iB"></div><div class="df"><button class="btn b-na" id="iOk"></button></div></dialog>
 
@@ -201,8 +201,8 @@ textarea{min-height:70px;resize:vertical}
 
 <dialog id="dOk"><div class="dh"><h3>¡Casi listo! 🎉</h3><button class="x" data-c aria-label="Cerrar">✕</button></div>
 <div class="db"><p><strong>Se abrió WhatsApp con tu pedido.</strong> Para que lo recibamos, <strong>presiona el botón de enviar</strong> dentro de WhatsApp.</p>
-<p class="ing" style="margin-top:.7rem">Tu pedido sigue guardado. ¿No se abrió o no alcanzaste a enviarlo? Puedes abrirlo de nuevo, o volver para cambiar algo.</p></div>
-<div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="btn b-na" id="yaEnvie" type="button" style="margin-top:.6rem">✅ Ya envié mi pedido</button><button class="btn b-ol2" id="volver" type="button">← Volver a mi pedido</button></div></dialog>
+<p class="ing" style="margin-top:.7rem">Tu pedido sigue guardado. ¿No se abrió WhatsApp o no alcanzaste a enviarlo? Toca el botón verde para abrirlo otra vez con tu pedido ya escrito y solo presiona enviar. Si quieres cambiar algo, vuelve a tu pedido.</p></div>
+<div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">📲 Abrir WhatsApp para enviar mi pedido</a><button class="btn b-na" id="yaEnvie" type="button" style="margin-top:.6rem">✅ Ya envié mi pedido</button><button class="btn b-ol2" id="volver" type="button">← Volver a mi pedido</button></div></dialog>
 <div id="gracias" role="status" hidden>✅ ¡Gracias por tu pedido! Te confirmamos por WhatsApp.</div>
 
 <dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><div class="box"><img id="vImg" alt=""></div></dialog>
@@ -267,8 +267,8 @@ $('#iB').addEventListener('input',function(e){if(e.target.id==='in')cur.nota=e.t
 $('#iOk').addEventListener('click',function(){unpend();if(editIdx>=0){cart[editIdx]=cur;track('editar_ensalada',{ensalada:cur.e.n,cantidad:cur.q,value:unit(cur)*cur.q,currency:'MXN'});editIdx=-1;$('#dItem').close();draw();return}track('agregar_al_pedido',{ensalada:cur.e.n,cantidad:cur.q,extras:cur.ex.length+cur.ae.length+cur.cr,value:unit(cur)*cur.q,currency:'MXN'});cart.push(cur);$('#dItem').close();bar()});
 
 function bar(){var n=cart.reduce(function(a,l){return a+l.q},0),t=cart.reduce(function(a,l){return a+unit(l)*l.q},0),b=$('#bar');
- b.textContent=n?(pend?'📲 Terminar de enviar mi pedido · '+m(t):'🛒 Ver mi pedido ('+n+') · '+m(t)):'Armar mi pedido';b.className='btn '+(n?'b-wa':'b-na')}
-$('#bar').addEventListener('click',function(){if(!cart.length){track('click_armar_pedido',{donde:'barra'});location.hash='#pedido';return}if(pend){$('#okLink').href=lastU;show($('#dOk'));return}track('abrir_pedido',{articulos:cart.length});draw();show($('#dCart'))});
+ b.textContent=n?(pend?'📲 Terminar de enviar mi pedido · '+m(t):'🛒 Ver mi pedido ('+n+') · '+m(t)):'Arma tu pedido';b.className='btn '+(n?'b-wa':'b-na')}
+$('#bar').addEventListener('click',function(){if(!cart.length){track('click_armar_pedido',{donde:'barra'});$('#pedido').scrollIntoView({behavior:'smooth'});return}if(pend){$('#okLink').href=lastU;show($('#dOk'));return}track('abrir_pedido',{articulos:cart.length});draw();show($('#dCart'))});
 
 function draw(){
  $('#lines').innerHTML=cart.length?cart.map(function(l,i){
