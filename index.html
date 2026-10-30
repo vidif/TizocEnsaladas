@@ -108,6 +108,15 @@ textarea{min-height:70px;resize:vertical}
 #gracias{position:fixed;left:.8rem;right:.8rem;top:calc(.8rem + env(safe-area-inset-top,0px));z-index:70;max-width:520px;margin:auto;padding:.9rem 1rem;border-radius:1rem;background:var(--vo);color:#fff;font-weight:700;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .rec{margin-top:1rem;padding:1rem;border-radius:1rem;background:var(--vc);display:grid;gap:.6rem}
 .rec a:not(.btn){font-weight:800;color:var(--vo)}
+.cb{position:relative;margin-top:.5rem;scroll-margin-top:80px}
+.cb input{padding-right:3.4rem}
+.cb button{position:absolute;right:.3rem;top:.3rem;width:42px;height:42px;border:0;border-radius:.7rem;background:var(--vc);color:var(--vo);font-size:1.1rem;cursor:pointer}
+.cb ul{list-style:none;padding:0;position:absolute;left:0;right:0;top:calc(100% + .3rem);z-index:5;max-height:240px;overflow:auto;background:#fff;border-radius:.9rem;border:2px solid var(--v);box-shadow:0 8px 24px rgba(0,0,0,.22);-webkit-overflow-scrolling:touch}
+.cb li{padding:.7rem .9rem;border-bottom:1px solid #eef3ea;cursor:pointer}
+.cb li:active,.cb li:hover{background:var(--vc)}
+.cb li small{float:right;color:var(--nao);font-weight:800}
+.cb li.no{color:var(--gr);cursor:default;background:#fff}
+#col{display:none!important}
 .ed{border:0;background:none;color:var(--vo);font-weight:800;cursor:pointer;text-decoration:underline;padding:.4rem .2rem;margin-right:.9rem}
 .rm{border:0;background:none;color:#b3261e;font-weight:700;cursor:pointer;text-decoration:underline}
 .tot{display:grid;gap:.2rem;margin-top:1rem;padding:.9rem 1rem;border-radius:1rem;background:var(--vc)}
@@ -183,6 +192,7 @@ textarea{min-height:70px;resize:vertical}
   <div id="dom">
     <h4>Dirección de entrega</h4>
     <input type="text" id="dir" placeholder="Calle y número" autocomplete="street-address">
+    <div class="cb" id="cbox"><input type="text" id="colQ" placeholder="Escribe tu colonia o toca ▾ (obligatorio)" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="colList" aria-label="Colonia (obligatorio)"><button type="button" id="colBtn" aria-label="Ver lista completa de colonias">▾</button><ul id="colList" role="listbox" hidden></ul></div>
     <select id="col" aria-label="Colonia (obligatorio)" style="margin-top:.5rem"></select>
     <label class="chip nocol" style="display:block;margin-top:.6rem"><input type="checkbox" id="noCol"><span>🔎 No encontré mi colonia</span></label>
     <input type="text" id="colOtra" placeholder="Escribe el nombre de tu colonia" style="margin-top:.5rem" autocomplete="off" hidden>
@@ -286,7 +296,7 @@ function draw(){
  var dom=document.querySelector('[name=ent]:checked').value==='A domicilio',s=cart.reduce(function(a,l){return a+unit(l)*l.q},0);
  $('#dom').hidden=!dom;$('#rec').hidden=dom;
  var c=colSel(),env=(dom&&c&&!c.otra)?c.t:null;
- $('#colOtra').hidden=!(c&&c.otra);$('#col').hidden=!!(c&&c.otra);$('#colMsg').hidden=!(c&&c.otra);
+ $('#colOtra').hidden=!(c&&c.otra);$('#cbox').hidden=!!(c&&c.otra);$('#colMsg').hidden=!(c&&c.otra);
  $('#tot').innerHTML='<div><span>Subtotal</span><b>'+m(s)+'</b></div>'+(!dom?'':env!==null?'<div><span>Envío ('+esc(c.n)+')</span><b>'+m(env)+'</b></div>':'<div class="ing"><span>'+(c&&c.otra?'Envío: lo confirmamos por WhatsApp':'Elige tu colonia para ver el costo de envío')+'</span></div>')+'<div class="g"><span>Total'+(dom&&env===null?' (sin envío)':'')+'</span><span>'+m(s+(env||0))+'</span></div>';bar();save()}
 $('#lines').addEventListener('click',function(e){var b=e.target;if(b.tagName==='BUTTON')unpend();
  if(b.dataset.e!==undefined){item(ENS.indexOf(cart[+b.dataset.e].e),+b.dataset.e);return}
@@ -296,11 +306,29 @@ $('#lines').addEventListener('click',function(e){var b=e.target;if(b.tagName==='
 document.querySelectorAll('[name=ent]').forEach(function(r){r.addEventListener('change',draw)});
 $('#col').innerHTML='<option value="">Selecciona tu colonia (obligatorio)</option>'+COL.map(function(c,i){return '<option value="'+i+'">'+esc(c[0])+'</option>'}).join('');
 function colSel(){if($('#noCol').checked)return{otra:true,n:$('#colOtra').value.trim()};var v=$('#col').value;if(v==='')return null;return{n:COL[v][0],t:COL[v][1]}}
-$('#col').addEventListener('change',function(){$('#colOk').hidden=true;var c=colSel();track('seleccionar_colonia',{colonia:c?c.n:''});draw()});
+$('#col').addEventListener('change',function(){$('#colOk').hidden=true;var c=colSel();if(c)track('seleccionar_colonia',{colonia:c.n});draw()});
 $('#noCol').addEventListener('change',function(){$('#sug').hidden=true;$('#colOk').hidden=true;if(this.checked)track('seleccionar_colonia',{colonia:'no_encontrada'});draw();if(this.checked)$('#colOtra').focus()});
 var norm=function(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()};
 var COLN=COL.map(function(c){return norm(c[0].replace(/ \(C\.P\. \d+\)$/,''))});
-function pick(i,ev){$('#noCol').checked=false;$('#col').value=i;$('#colOtra').value='';$('#sug').hidden=true;$('#colOk').textContent='✅ Encontramos tu colonia: '+COL[i][0]+'. Envío '+m(COL[i][1])+'.';$('#colOk').hidden=false;track(ev,{colonia:COL[i][0]});draw()}
+var COLL=COL.map(function(c){return norm(c[0])}),cbL=$('#colList'),cbI=$('#colQ');
+function cbOpen(all){var q=all?'':norm(cbI.value),w=q?q.split(' '):[],r=[];
+ COLL.forEach(function(x,i){if(!w.length||w.every(function(k){return x.indexOf(k)>=0}))r.push(i)});
+ if(q)r.sort(function(a,b){return (COLL[b].indexOf(q)===0)-(COLL[a].indexOf(q)===0)});
+ var tot=r.length,mx=q?60:1000;r=r.slice(0,mx);
+ cbL.innerHTML=r.length?r.map(function(i){return '<li role="option" data-i="'+i+'">'+esc(COL[i][0])+'<small>'+m(COL[i][1])+'</small></li>'}).join('')+(tot>mx?'<li class="no">Hay más resultados: sigue escribiendo para afinar</li>':''):'<li class="no">No hay coincidencias. Marca «No encontré mi colonia» aquí abajo.</li>';
+ cbL.hidden=false;cbL.scrollTop=0;cbI.setAttribute('aria-expanded','true')}
+function cbClose(){cbL.hidden=true;cbI.setAttribute('aria-expanded','false')}
+function cbPick(i){$('#col').value=i;cbI.value=COL[i][0];cbClose();cbI.blur();$('#col').dispatchEvent(new Event('change',{bubbles:true}))}
+function syncQ(){var v=$('#col').value;cbI.value=v!==''&&COL[v]?COL[v][0]:''}
+function cbVer(){$('#cbox').scrollIntoView({block:'start',behavior:'smooth'})}
+cbI.addEventListener('focus',function(){var t=$('#col').value!=='';cbOpen(t);cbVer();if(t)setTimeout(function(){try{cbI.select()}catch(e){}},0)});
+cbI.addEventListener('input',function(){var v=$('#col').value;if(v!==''&&cbI.value!==COL[v][0]){$('#col').value='';$('#col').dispatchEvent(new Event('change',{bubbles:true}))}cbOpen(false)});
+cbI.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();var f=cbL.querySelector('li[data-i]');if(f)cbPick(+f.dataset.i)}if(e.key==='Escape')cbClose()});
+$('#colBtn').addEventListener('click',function(){if(cbL.hidden){cbOpen(true);cbVer()}else cbClose()});
+cbL.addEventListener('mousedown',function(e){e.preventDefault()});
+cbL.addEventListener('click',function(e){var li=e.target.closest('li[data-i]');if(li)cbPick(+li.dataset.i)});
+document.addEventListener('click',function(e){if(!e.target.closest('#cbox'))cbClose()});
+function pick(i,ev){$('#noCol').checked=false;$('#col').value=i;syncQ();$('#colOtra').value='';$('#sug').hidden=true;$('#colOk').textContent='✅ Encontramos tu colonia: '+COL[i][0]+'. Envío '+m(COL[i][1])+'.';$('#colOk').hidden=false;track(ev,{colonia:COL[i][0]});draw()}
 function buscar(fin){
  var n=norm($('#colOtra').value),sg=$('#sug');$('#colOk').hidden=true;
  if(n.length<2){sg.hidden=true;return}
@@ -323,7 +351,7 @@ $('#seguir').addEventListener('click',function(){$('#dCart').close();track('segu
 var lastU='',pend=false;
 function limpiar(){var pk=document.querySelector('[name=ent]:checked').value!=='A domicilio';cart=[];pend=false;lastU='';['#nom','#cel','#dir','#ref','#hora','#nota'].forEach(function(k){$(k).value=''});
  document.querySelector('[name=ent][value="A domicilio"]').checked=true;document.querySelector('[name=pg]').checked=true;
- $('#col').value='';$('#colOtra').value='';$('#noCol').checked=false;$('#sug').hidden=true;$('#colOk').hidden=true;$('#err').textContent='';$('#dCart').close();$('#dOk').close();draw();try{localStorage.removeItem('tfh')}catch(e){}window.scrollTo(0,0);
+ $('#col').value='';cbI.value='';$('#colOtra').value='';$('#noCol').checked=false;$('#sug').hidden=true;$('#colOk').hidden=true;$('#err').textContent='';$('#dCart').close();$('#dOk').close();draw();try{localStorage.removeItem('tfh')}catch(e){}window.scrollTo(0,0);
  var g=$('#gracias');g.innerHTML=pk?'✅ ¡Gracias por tu pedido! Te esperamos en Del Presagio 3251B, Horizontes. <a href="'+MAP_D+'" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">🧭 Cómo llegar</a>':'✅ ¡Gracias por tu pedido! Te confirmamos por WhatsApp.';g.hidden=false;clearTimeout(window._g);window._g=setTimeout(function(){g.hidden=true},pk?20000:8000)}
 function showOk(){$('#okLink').href=lastU;$('#okRec').hidden=document.querySelector('[name=ent]:checked').value==='A domicilio';show($('#dOk'))}
 function unpend(){if(pend){pend=false;lastU='';bar();save()}}
@@ -336,7 +364,7 @@ $('#enviar').addEventListener('click',function(){
  if(!nom){er.textContent='Escribe tu nombre.';track('error_pedido',{motivo:'falta_nombre'});$('#nom').focus();return}
  var cel=$('#cel').value.trim();if(cel.replace(/\D/g,'').length<10){er.textContent='Escribe tu celular a 10 dígitos.';track('error_pedido',{motivo:'falta_celular'});$('#cel').focus();return}
  if(dom&&!dir){er.textContent='Escribe tu dirección de entrega.';track('error_pedido',{motivo:'falta_direccion'});$('#dir').focus();return}
- var c=colSel();if(dom&&!c){er.textContent='Selecciona tu colonia o marca "No encontré mi colonia".';track('error_pedido',{motivo:'falta_colonia'});$('#col').focus();return}
+ var c=colSel();if(dom&&!c){er.textContent='Selecciona tu colonia o marca "No encontré mi colonia".';track('error_pedido',{motivo:'falta_colonia'});$('#colQ').focus();return}
  if(dom&&c.otra&&!c.n){er.textContent='Escribe el nombre de tu colonia.';track('error_pedido',{motivo:'falta_nombre_colonia'});$('#colOtra').focus();return}
  var env=(dom&&!c.otra)?c.t:null,s=cart.reduce(function(a,l){return a+unit(l)*l.q},0),L=['Hola Tizoc, quiero hacer un pedido de ensalada 🥗','','*🧾 MI PEDIDO*'];
  cart.forEach(function(l,i){L.push((i+1)+') '+l.q+' x '+l.e.n+' — '+m(unit(l)*l.q));L.push('   🥣 Aderezo: '+l.ad);
@@ -360,7 +388,7 @@ var fd=0;$('#dCart').addEventListener('focusin',function(e){if(!fd&&/INPUT|TEXTA
 (function(){try{var d=JSON.parse(localStorage.getItem('tfh')||'null');if(!d||Date.now()-d.t>432e5)return;
  cart=(d.c||[]).filter(function(l){return ENS[l.i]}).map(function(l){return{e:ENS[l.i],q:Math.max(1,Math.min(20,+l.q||1)),ad:ADER.indexOf(l.ad)>=0?l.ad:ADER[0],ex:(l.ex||[]).filter(function(k){return P[k]!==undefined}),ae:(l.ae||[]).filter(function(k){return ADER.indexOf(k)>=0}),cr:l.cr?1:0,nota:l.nota||''}});
  pend=!!d.p;lastU=d.p||'';var f=d.f||{};['nom','cel','dir','ref','hora','nota','colOtra'].forEach(function(k){if(f[k])$('#'+k).value=f[k]});
- if(f.colN){var i=COL.findIndex(function(c){return c[0]===f.colN});if(i>=0)$('#col').value=i}
+ if(f.colN){var i=COL.findIndex(function(c){return c[0]===f.colN});if(i>=0){$('#col').value=i;syncQ()}}
  $('#noCol').checked=!!f.noCol;
  var e=document.querySelector('[name=ent][value="'+f.ent+'"]');if(e)e.checked=true;var p=document.querySelector('[name=pg][value="'+f.pg+'"]');if(p)p.checked=true;
  draw()}catch(e){}})();
