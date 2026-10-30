@@ -98,7 +98,11 @@ textarea{min-height:70px;resize:vertical}
 .tot div{display:flex;justify-content:space-between}.tot .g{font:600 1.3rem 'Fredoka',sans-serif;color:var(--vo)}
 .err{color:#b3261e;font-weight:700;margin-top:.6rem;min-height:1.2em}
 .vis{background:transparent;max-height:94vh;margin:auto;border-radius:0;overflow:visible;width:auto}
-.vis img{max-width:96vw;max-height:84vh;border-radius:.8rem;background:#fff}
+.vis .box{overflow:auto;max-width:96vw;max-height:78vh;border-radius:.8rem;background:#fff;touch-action:pan-x pan-y pinch-zoom}
+.vis img{display:block;max-width:96vw;max-height:78vh;width:auto;height:auto;margin:auto;cursor:zoom-in}
+.vis img.z{max-width:none;max-height:none;width:min(1400px,220vw);cursor:zoom-out}
+.vis .hint{color:#fff;text-align:center;font-size:.9rem;margin-top:.5rem}
+.card img.ph{cursor:zoom-in}
 .vis .x{display:block;margin:0 0 .6rem auto;width:auto;padding:0 1rem;border-radius:999px}
 @media(min-width:700px){dialog{margin:auto;border-radius:1.4rem}.ops{grid-template-columns:repeat(2,1fr);max-width:560px}.datos ul{grid-template-columns:repeat(3,1fr)}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
@@ -130,7 +134,7 @@ textarea{min-height:70px;resize:vertical}
   <section class="bq" id="menu"><div class="wrap">
     <h2>Nuestro menú</h2>
     <p class="sub">Toca la imagen para verla en grande.</p>
-    <button class="menu-b" id="verMenu" aria-label="Ampliar menú"><img src="menu-tizoc.jpg" alt="Menú de Tizoc Food House: ensaladas y aderezos" loading="lazy"></button>
+    <button class="menu-b" id="verMenu" aria-label="Ampliar menú"><img src="Menu%20ensaladas%20Tizoc.png" alt="Menú de Tizoc Food House: ensaladas y aderezos" loading="lazy"></button>
   </div></section>
 
   <section class="bq datos" id="contacto"><div class="wrap">
@@ -180,7 +184,12 @@ textarea{min-height:70px;resize:vertical}
 </div>
 <div class="df"><button class="btn b-wa" id="enviar">Enviar pedido por WhatsApp</button></div></dialog>
 
-<dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><img id="vImg" alt=""></dialog>
+<dialog id="dOk"><div class="dh"><h3>¡Casi listo! 🎉</h3><button class="x" data-c aria-label="Cerrar">✕</button></div>
+<div class="db"><p><strong>Se abrió WhatsApp con tu pedido.</strong> Para que lo recibamos, <strong>presiona el botón de enviar</strong> dentro de WhatsApp.</p>
+<p class="ing" style="margin-top:.7rem">¿No se abrió o no alcanzaste a enviarlo? Puedes abrirlo de nuevo:</p></div>
+<div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="rm" data-c style="display:block;margin:.8rem auto 0">Cerrar</button></div></dialog>
+
+<dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><div class="box"><img id="vImg" alt=""></div><p class="hint">Toca la imagen para acercar o alejar</p></dialog>
 
 <script>
 /* ===== CONFIGURACIÓN: aquí cambias precios y datos ===== */
@@ -212,7 +221,9 @@ document.querySelectorAll('dialog').forEach(function(d){d.addEventListener('clic
 $('#cards').innerHTML=ENS.map(function(x,i){
  return '<article class="card">'+(x.img?'<img class="ph" src="'+x.img+'" alt="'+x.n+'" loading="lazy">':'<div class="ph" aria-hidden="true">'+x.e+'</div>')+
  '<div class="in"><h3>'+x.n+'</h3><p>'+x.i+'</p><span class="pr">'+m(CFG.precio)+'</span><button class="btn b-na" data-i="'+i+'">Agregar al pedido</button></div></article>'}).join('');
-$('#cards').addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b)item(+b.dataset.i)});
+$('#cards').addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b){item(+b.dataset.i);return}var im=e.target.closest('img.ph');if(im){track('zoom_imagen',{img:im.alt});zoom(im.getAttribute('src'),im.alt)}});
+function zoom(src,alt){var v=$('#vImg');v.classList.remove('z');v.src=src;v.alt=alt;show($('#dVis'))}
+$('#vImg').addEventListener('click',function(){this.classList.toggle('z')});
 
 function grp(id,t,a){return '<div class="acc"><button type="button" class="ab" data-acc="'+id+'" aria-expanded="false" aria-controls="p-'+id+'"><span>'+t+' <em id="n-'+id+'"></em></span><i>▾</i></button><div class="chips" id="p-'+id+'" hidden>'+a.map(function(x){return '<label class="chip"><input type="checkbox" name="ex" value="'+x[0]+'"><span>'+x[0]+' <b>+'+m(x[1])+'</b></span></label>'}).join('')+'</div></div>'}
 function cnt(){Object.keys(G).forEach(function(g){var c=cur.ex.filter(function(k){return G[g].some(function(x){return x[0]===k})}).length;$('#n-'+g).textContent=c?'· '+c+' elegido'+(c>1?'s':''):''})}
@@ -255,6 +266,10 @@ $('#lines').addEventListener('click',function(e){var b=e.target;
 document.querySelectorAll('[name=ent]').forEach(function(r){r.addEventListener('change',draw)});
 $('#pagos').innerHTML=CFG.pagos.map(function(p,k){return '<label class="chip"><input type="radio" name="pg" value="'+p+'"'+(k?'':' checked')+'><span>'+p+'</span></label>'}).join('');
 
+var lastU='';
+function reset(){cart=[];['#nom','#cel','#dir','#ref','#hora','#nota'].forEach(function(k){$(k).value=''});
+ document.querySelector('[name=ent][value="A domicilio"]').checked=true;document.querySelector('[name=pg]').checked=true;
+ $('#err').textContent='';$('#dCart').close();draw();window.scrollTo(0,0);$('#okLink').href=lastU;show($('#dOk'))}
 $('#enviar').addEventListener('click',function(){
  var dom=document.querySelector('[name=ent]:checked').value==='A domicilio',nom=$('#nom').value.trim(),dir=$('#dir').value.trim(),er=$('#err');er.textContent='';
  if(!cart.length){er.textContent='Agrega al menos una ensalada.';track('error_pedido',{motivo:'sin_ensaladas'});return}
@@ -274,9 +289,9 @@ $('#enviar').addEventListener('click',function(){
  L.push('💰 *Total:* '+m(s)+(dom?' + envío':''),'','👤 *Nombre:* '+nom,'📱 *Celular:* '+cel);
  track('enviar_whatsapp',{value:s,currency:'MXN',entrega:dom?'domicilio':'recoger',pago:pago,articulos:cart.reduce(function(a,l){return a+l.q},0)});
  var u='https://wa.me/'+CFG.tel+'?text='+encodeURIComponent(L.join('\n'));
- if(!window.open(u,'_blank'))location.href=u});
+ var ok=window.open(u,'_blank');lastU=u;reset();if(!ok)location.href=u});
 
-$('#verMenu').addEventListener('click',function(){track('ver_menu_ampliado');$('#vImg').src='menu-tizoc.jpg';$('#vImg').alt='Menú de Tizoc Food House';show($('#dVis'))});
+$('#verMenu').addEventListener('click',function(){track('ver_menu_ampliado');zoom('Menu%20ensaladas%20Tizoc.png','Menú de Tizoc Food House')});
 document.querySelectorAll('[data-wa]').forEach(function(a){a.addEventListener('click',function(){track('click_whatsapp_directo',{donde:a.dataset.wa})})});
 document.querySelectorAll('.ops a:not([data-wa])').forEach(function(a){a.addEventListener('click',function(){track('click_portada',{boton:a.getAttribute('href')})})});
 var fd=0;$('#dCart').addEventListener('focusin',function(e){if(!fd&&/INPUT|TEXTAREA/.test(e.target.tagName)&&e.target.type!=='radio'){fd=1;track('llenar_datos')}});
