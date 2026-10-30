@@ -99,8 +99,7 @@ textarea{min-height:70px;resize:vertical}
 .err{color:#b3261e;font-weight:700;margin-top:.6rem;min-height:1.2em}
 .vis{background:transparent;max-height:94vh;margin:auto;border-radius:0;overflow:visible;width:auto}
 .vis .box{overflow:auto;max-width:96vw;max-height:78vh;border-radius:.8rem;background:#fff;touch-action:pan-x pan-y pinch-zoom}
-.vis img{display:block;max-width:96vw;max-height:78vh;width:auto;height:auto;margin:auto;cursor:zoom-in}
-.vis img.z{max-width:none;max-height:none;width:min(1400px,220vw);cursor:zoom-out}
+.vis img{display:block;max-width:96vw;max-height:78vh;width:auto;height:auto;margin:auto}
 .vis .hint{color:#fff;text-align:center;font-size:.9rem;margin-top:.5rem}
 .card img.ph{cursor:zoom-in}
 .vis .x{display:block;margin:0 0 .6rem auto;width:auto;padding:0 1rem;border-radius:999px}
@@ -189,7 +188,7 @@ textarea{min-height:70px;resize:vertical}
 <p class="ing" style="margin-top:.7rem">¿No se abrió o no alcanzaste a enviarlo? Puedes abrirlo de nuevo:</p></div>
 <div class="df"><a class="btn b-wa" id="okLink" href="#" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a><button class="rm" data-c style="display:block;margin:.8rem auto 0">Cerrar</button></div></dialog>
 
-<dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><div class="box"><img id="vImg" alt=""></div><p class="hint">Toca la imagen para acercar o alejar</p></dialog>
+<dialog class="vis" id="dVis"><button class="x" data-c>Cerrar</button><div class="box"><img id="vImg" alt=""></div><p class="hint">Con dos dedos puedes acercar la imagen</p></dialog>
 
 <script>
 /* ===== CONFIGURACIÓN: aquí cambias precios y datos ===== */
@@ -222,8 +221,7 @@ $('#cards').innerHTML=ENS.map(function(x,i){
  return '<article class="card">'+(x.img?'<img class="ph" src="'+x.img+'" alt="'+x.n+'" loading="lazy">':'<div class="ph" aria-hidden="true">'+x.e+'</div>')+
  '<div class="in"><h3>'+x.n+'</h3><p>'+x.i+'</p><span class="pr">'+m(CFG.precio)+'</span><button class="btn b-na" data-i="'+i+'">Agregar al pedido</button></div></article>'}).join('');
 $('#cards').addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b){item(+b.dataset.i);return}var im=e.target.closest('img.ph');if(im){track('zoom_imagen',{img:im.alt});zoom(im.getAttribute('src'),im.alt)}});
-function zoom(src,alt){var v=$('#vImg');v.classList.remove('z');v.src=src;v.alt=alt;show($('#dVis'))}
-$('#vImg').addEventListener('click',function(){this.classList.toggle('z')});
+function zoom(src,alt){var v=$('#vImg');v.src=src;v.alt=alt;show($('#dVis'))}
 
 function grp(id,t,a){return '<div class="acc"><button type="button" class="ab" data-acc="'+id+'" aria-expanded="false" aria-controls="p-'+id+'"><span>'+t+' <em id="n-'+id+'"></em></span><i>▾</i></button><div class="chips" id="p-'+id+'" hidden>'+a.map(function(x){return '<label class="chip"><input type="checkbox" name="ex" value="'+x[0]+'"><span>'+x[0]+' <b>+'+m(x[1])+'</b></span></label>'}).join('')+'</div></div>'}
 function cnt(){Object.keys(G).forEach(function(g){var c=cur.ex.filter(function(k){return G[g].some(function(x){return x[0]===k})}).length;$('#n-'+g).textContent=c?'· '+c+' elegido'+(c>1?'s':''):''})}
